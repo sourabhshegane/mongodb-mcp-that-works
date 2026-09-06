@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented here. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). All versions below are published on [npm](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works) with a matching [GitHub Release](https://github.com/sourabhshegane/mongodb-mcp-that-works/releases).
 
+## [0.1.6] - 2026-09-06
+
+### Added
+- Repo badges (npm, CI, license, stars) and an npm + Releases section in the README
+- `CHANGELOG.md` documenting all published versions
+- GitHub Actions CI workflow (build + smoke test) running on Node 18/20/22
+- GitHub Actions release workflow that publishes to npm and creates a GitHub Release on `v*` tag pushes
+
 ## [0.1.5] - 2026-09-06
 
 ### Fixed
@@ -28,6 +36,7 @@ All notable changes to this project are documented here. The format is based on 
 - TypeScript support with Zod validation
 - MCP stdio server compatible with Claude Desktop
 
+[0.1.6]: https://github.com/sourabhshegane/mongodb-mcp-that-works/compare/v0.1.5...v0.1.6
 [0.1.5]: https://github.com/sourabhshegane/mongodb-mcp-that-works/compare/v0.1.3...v0.1.5
 [0.1.3]: https://github.com/sourabhshegane/mongodb-mcp-that-works/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/sourabhshegane/mongodb-mcp-that-works/compare/v0.1.0...v0.1.2

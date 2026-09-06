@@ -258,6 +258,7 @@ See [CHANGELOG.md](CHANGELOG.md) for the full history.
 
 | Version | npm | GitHub Release | Highlights |
 |---------|-----|----------------|------------|
+| 0.1.6 | [npm](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works/v/0.1.6) | [v0.1.6](https://github.com/sourabhshegane/mongodb-mcp-that-works/releases/tag/v0.1.6) | CI/CD, changelog, and repo badges |
 | 0.1.5 | [npm](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works/v/0.1.5) | [v0.1.5](https://github.com/sourabhshegane/mongodb-mcp-that-works/releases/tag/v0.1.5) | Post-migration metadata & ownership fixes |
 | 0.1.3 | [npm](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works/v/0.1.3) | [v0.1.3](https://github.com/sourabhshegane/mongodb-mcp-that-works/releases/tag/v0.1.3) | Published with `@latest` install docs |
 | 0.1.2 | [npm](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works/v/0.1.2) | [v0.1.2](https://github.com/sourabhshegane/mongodb-mcp-that-works/releases/tag/v0.1.2) | Repo URLs updated to mongodb-mcp-that-works |
