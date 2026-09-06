@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented here. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). All versions below are published on [npm](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works) with a matching [GitHub Release](https://github.com/sourabhshegane/mongodb-mcp-that-works/releases).
 
+## [0.1.7] - 2026-09-06
+
+### Added
+- MCP [ToolAnnotations](https://modelcontextprotocol.io/specification/2025-03-26/server/tools#toolannotations) on all tools (`readOnlyHint`, `idempotentHint`, `destructiveHint`) so clients can distinguish read-only from write tools
+- README sections: security `[!CAUTION]` callout, tool annotations table, VS Code one-click install buttons, MCP Inspector debugging guide, Contributing
+- `mcp-name` metadata comment for the MCP registry/directory
+
+### Changed
+- Upgraded `@modelcontextprotocol/sdk` from 0.5 to 1.30 (2025-03-26 spec)
+
 ## [0.1.6] - 2026-09-06
 
 ### Added
@@ -36,6 +46,7 @@ All notable changes to this project are documented here. The format is based on 
 - TypeScript support with Zod validation
 - MCP stdio server compatible with Claude Desktop
 
+[0.1.7]: https://github.com/sourabhshegane/mongodb-mcp-that-works/compare/v0.1.6...v0.1.7
 [0.1.6]: https://github.com/sourabhshegane/mongodb-mcp-that-works/compare/v0.1.5...v0.1.6
 [0.1.5]: https://github.com/sourabhshegane/mongodb-mcp-that-works/compare/v0.1.3...v0.1.5
 [0.1.3]: https://github.com/sourabhshegane/mongodb-mcp-that-works/compare/v0.1.2...v0.1.3
