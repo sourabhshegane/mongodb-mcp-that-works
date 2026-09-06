@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented here. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). All versions below are published on [npm](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works) with a matching [GitHub Release](https://github.com/sourabhshegane/mongodb-mcp-that-works/releases).
 
+## [Unreleased]
+
+### Added
+- Automated test suite: `npm test` runs protocol/annotation unit tests plus an end-to-end CRUD suite against a real MongoDB (auto-skips when no MongoDB is reachable)
+
 ## [0.1.7] - 2026-09-06
 
 ### Added

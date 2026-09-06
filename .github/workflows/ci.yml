@@ -8,11 +8,16 @@ on:
 
 jobs:
   build:
-    name: Build & Smoke Test (Node ${{ matrix.node }})
+    name: Build & Test (Node ${{ matrix.node }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node: [18, 20, 22]
+    services:
+      mongodb:
+        image: mongo:7
+        ports:
+          - 27017:27017
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -26,26 +31,5 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
-        run: npm run build
-
-      - name: Smoke test
-        run: |
-          set -e
-          node dist/index.js 2> /tmp/mcp.out &
-          PID=$!
-          for i in $(seq 1 20); do
-            if grep -q "MongoDB MCP server running on stdio" /tmp/mcp.out; then
-              echo "[MongoDB MCP] Server started successfully (smoke test passed)"
-              kill $PID 2>/dev/null || true
-              wait $PID 2>/dev/null || true
-              exit 0
-            fi
-            if ! kill -0 $PID 2>/dev/null; then
-              break
-            fi
-            sleep 1
-          done
-          echo "Server failed to start. Output:"
-          cat /tmp/mcp.out
-          exit 1
+      - name: Test (unit + end-to-end CRUD)
+        run: npm test

@@ -418,6 +418,21 @@ Set `MONGODB_URI` (and optionally `MONGODB_DATABASE`) in your environment before
 - Limit result sets with `limit` parameter
 - Use projections to return only needed fields
 
+## Testing
+
+The repo ships an automated test suite (`node:test`, no extra framework):
+
+```bash
+npm test
+```
+
+This first builds, then runs:
+
+- **Unit tests** (`tests/unit.test.mjs`) — MCP protocol: negotiated version, the 10 tool schemas, ToolAnnotations, and error handling. No database required.
+- **End-to-end tests** (`tests/e2e.test.mjs`) — full CRUD tour against a real MongoDB (`insertOne` → `find`/`findOne`/`count`/`distinct`/`aggregate` → `updateOne` → `getSchema` → `deleteOne`), plus ObjectId auto-conversion and idempotency checks. Auto-skips with a note when no MongoDB is reachable.
+
+The suite connects to MongoDB at `MONGODB_URI` (default `mongodb://127.0.0.1:27017`) and uses a throwaway database it deletes afterward, so it's safe against any existing data. CI runs both suites against a real MongoDB (Docker `mongo:7`) on every push/PR.
+
 ## Contributing
 
 Contributions are welcome — new tools, bug fixes, examples, and documentation improvements. Pull requests and issues are appreciated. See [CHANGELOG.md](CHANGELOG.md) for release history. For examples of other MCP servers, see the [reference implementations](https://github.com/modelcontextprotocol/servers).
