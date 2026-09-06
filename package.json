@@ -1,6 +1,6 @@
 {
   "name": "@sourabhshegane/mongodb-mcp-that-works",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A MongoDB MCP server that actually works - with schema discovery, field validation, and all MongoDB operations",
   "main": "dist/index.js",
   "type": "module",
@@ -18,12 +18,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sourabhfb/mongodb-mcp-that-works.git"
+    "url": "https://github.com/sourabhshegane/mongodb-mcp-that-works.git"
   },
   "bugs": {
-    "url": "https://github.com/sourabhfb/mongodb-mcp-that-works/issues"
+    "url": "https://github.com/sourabhshegane/mongodb-mcp-that-works/issues"
   },
-  "homepage": "https://github.com/sourabhfb/mongodb-mcp-that-works#readme",
+  "homepage": "https://github.com/sourabhshegane/mongodb-mcp-that-works#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^0.5.0",
     "mongodb": "^6.3.0",
