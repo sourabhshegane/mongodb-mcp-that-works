@@ -3,8 +3,6 @@
 [![npm version](https://img.shields.io/npm/v/@sourabhshegane/mongodb-mcp-that-works?color=blue)](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works)
 [![npm downloads](https://img.shields.io/npm/dt/@sourabhshegane/mongodb-mcp-that-works?color=blue)](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works)
 [![npm weekly downloads](https://img.shields.io/npm/dw/@sourabhshegane/mongodb-mcp-that-works?color=blue)](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works)
-[![npm monthly downloads](https://img.shields.io/npm/dm/@sourabhshegane/mongodb-mcp-that-works?color=blue)](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works)
-[![npm last update](https://badgen.net/npm/last-update/@sourabhshegane/mongodb-mcp-that-works)](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works)
 [![CI](https://github.com/sourabhshegane/mongodb-mcp-that-works/actions/workflows/ci.yml/badge.svg)](https://github.com/sourabhshegane/mongodb-mcp-that-works/actions/workflows/ci.yml)
 [![GitHub release](https://img.shields.io/github/v/release/sourabhshegane/mongodb-mcp-that-works)](https://github.com/sourabhshegane/mongodb-mcp-that-works/releases)
 [![license](https://img.shields.io/github/license/sourabhshegane/mongodb-mcp-that-works)](LICENSE)
