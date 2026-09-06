@@ -9,7 +9,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/sourabhshegane/mongodb-mcp-that-works)](https://github.com/sourabhshegane/mongodb-mcp-that-works)
 [![node](https://img.shields.io/badge/node-%3E%3D16-green)](package.json)
 
-A reliable MongoDB MCP (Model Context Protocol) server that provides seamless MongoDB integration for Claude Desktop with built-in schema discovery and field validation.
+A reliable MongoDB MCP (Model Context Protocol) server with built-in schema discovery and field validation. It's a standard MCP server over stdio, so it connects to **any** MCP client — Claude Desktop, Claude Code, OpenAI Codex, Cursor, VS Code / GitHub Copilot, Zed, and more.
 
 > **Published on npm**: [`@sourabhshegane/mongodb-mcp-that-works`](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works) · Install with `npx -y @sourabhshegane/mongodb-mcp-that-works`
 
@@ -32,10 +32,29 @@ npm install -g @sourabhshegane/mongodb-mcp-that-works
 
 ## Configuration
 
-Add to your Claude Desktop configuration file:
+This is a standard stdio MCP server. Any MCP client launches it with `npx` and passes two environment variables:
 
-**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-**Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `MONGODB_URI` | Yes | MongoDB connection string, e.g. `mongodb+srv://user:pass@cluster.mongodb.net/database` |
+| `MONGODB_DATABASE` | No | Default database name (falls back to the URI's database) |
+
+Every client below uses the same launch command:
+
+```bash
+npx -y @sourabhshegane/mongodb-mcp-that-works@latest
+```
+
+The `-y` flag auto-confirms the install so the client never hangs on an interactive prompt.
+
+> **Security**: never commit a real connection string. The examples use placeholders, or reference environment variables (`${env:...}`, `env_vars`, `${input:...}`) so credentials stay out of version control.
+
+### Claude Desktop
+
+Edit your Claude Desktop config:
+
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
 
 ```json
 {
@@ -44,7 +63,7 @@ Add to your Claude Desktop configuration file:
       "command": "npx",
       "args": ["-y", "@sourabhshegane/mongodb-mcp-that-works@latest"],
       "env": {
-        "MONGODB_URI": "mongodb+srv://username:password@cluster.mongodb.net/database",
+        "MONGODB_URI": "mongodb+srv://<user>:<password>@cluster.mongodb.net/<database>",
         "MONGODB_DATABASE": "your_database_name"
       }
     }
@@ -52,10 +71,122 @@ Add to your Claude Desktop configuration file:
 }
 ```
 
-### Configuration Options
+### Claude Code
 
-- `MONGODB_URI`: Your MongoDB connection string (required)
-- `MONGODB_DATABASE`: Default database name (optional)
+Add it with the CLI (anything after `--` is the server command):
+
+```bash
+claude mcp add mongodb --scope user \
+  --env MONGODB_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net/<database> \
+  -- npx -y @sourabhshegane/mongodb-mcp-that-works@latest
+```
+
+Or commit a project-scoped `.mcp.json` (secrets referenced with `${VAR}`):
+
+```json
+{
+  "mcpServers": {
+    "mongodb": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@sourabhshegane/mongodb-mcp-that-works@latest"],
+      "env": {
+        "MONGODB_URI": "${MONGODB_URI}",
+        "MONGODB_DATABASE": "${MONGODB_DATABASE:-your_database_name}"
+      }
+    }
+  }
+}
+```
+
+Scopes: `local` → `~/.claude.json`, `project` → `.mcp.json`, `user` → `~/.claude.json`. Verify with `claude mcp list`.
+
+### OpenAI Codex
+
+Codex uses **TOML** (not JSON). Add to `~/.codex/config.toml` (or project-scoped `.codex/config.toml`):
+
+```toml
+[mcp_servers.mongodb]
+command = "npx"
+args = ["-y", "@sourabhshegane/mongodb-mcp-that-works@latest"]
+env = { MONGODB_URI = "mongodb+srv://<user>:<password>@cluster.mongodb.net/<database>", MONGODB_DATABASE = "your_database_name" }
+startup_timeout_sec = 30
+```
+
+Or forward variables from your shell instead of inlining them:
+
+```toml
+[mcp_servers.mongodb]
+command = "npx"
+args = ["-y", "@sourabhshegane/mongodb-mcp-that-works@latest"]
+env_vars = ["MONGODB_URI", "MONGODB_DATABASE"]
+```
+
+Or add it with the CLI: `codex mcp add mongodb -- npx -y @sourabhshegane/mongodb-mcp-that-works@latest`. Verify with `codex mcp list`.
+
+### Cursor
+
+Project scope — `.cursor/mcp.json` (commit it to share with your team). Global scope — `~/.cursor/mcp.json`.
+
+```json
+{
+  "mcpServers": {
+    "mongodb": {
+      "command": "npx",
+      "args": ["-y", "@sourabhshegane/mongodb-mcp-that-works@latest"],
+      "env": {
+        "MONGODB_URI": "${env:MONGODB_URI}",
+        "MONGODB_DATABASE": "${env:MONGODB_DATABASE}"
+      }
+    }
+  }
+}
+```
+
+### VS Code / GitHub Copilot
+
+Note: VS Code's root key is **`servers`** (other clients use `mcpServers`), and `type` is required. `.vscode/mcp.json`:
+
+```json
+{
+  "servers": {
+    "mongodb": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@sourabhshegane/mongodb-mcp-that-works@latest"],
+      "env": {
+        "MONGODB_URI": "${input:mongodb-uri}"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "id": "mongodb-uri",
+      "type": "promptString",
+      "description": "MongoDB connection string",
+      "password": true
+    }
+  ]
+}
+```
+
+### Zed
+
+Add to `settings.json` (`~/.config/zed/settings.json` or `.zed/settings.json`):
+
+```json
+{
+  "mcp": {
+    "mongodb": {
+      "command": "npx",
+      "args": ["-y", "@sourabhshegane/mongodb-mcp-that-works@latest"],
+      "env": {
+        "MONGODB_URI": "mongodb+srv://<user>:<password>@cluster.mongodb.net/<database>"
+      }
+    }
+  }
+}
+```
 
 ## Available Tools
 
