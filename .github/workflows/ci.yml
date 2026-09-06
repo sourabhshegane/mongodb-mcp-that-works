@@ -31,14 +31,21 @@ jobs:
 
       - name: Smoke test
         run: |
-          node dist/index.js > /tmp/mcp.out 2>&1 &
+          set -e
+          node dist/index.js 2> /tmp/mcp.out &
           PID=$!
-          sleep 3
-          if kill -0 $PID 2>/dev/null; then
-            echo "[MongoDB MCP] Server started successfully (smoke test passed)"
-            kill $PID 2>/dev/null || true
-          else
-            echo "Server exited prematurely. Output:"
-            cat /tmp/mcp.out
-            exit 1
-          fi
+          for i in $(seq 1 20); do
+            if grep -q "MongoDB MCP server running on stdio" /tmp/mcp.out; then
+              echo "[MongoDB MCP] Server started successfully (smoke test passed)"
+              kill $PID 2>/dev/null || true
+              wait $PID 2>/dev/null || true
+              exit 0
+            fi
+            if ! kill -0 $PID 2>/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          echo "Server failed to start. Output:"
+          cat /tmp/mcp.out
+          exit 1
