@@ -74,7 +74,7 @@ class MongoDBMCPServer {
     this.server = new Server(
       {
         name: 'mongodb-mcp-that-works',
-        version: '0.1.5',
+        version: '0.1.6',
       },
       {
         capabilities: {
@@ -162,6 +162,11 @@ class MongoDBMCPServer {
         {
           name: 'find',
           description: 'Find documents in a MongoDB collection',
+          annotations: {
+            readOnlyHint: true,
+            idempotentHint: true,
+            destructiveHint: false,
+          },
           inputSchema: {
             type: 'object',
             properties: {
@@ -178,6 +183,11 @@ class MongoDBMCPServer {
         {
           name: 'findOne',
           description: 'Find a single document in a MongoDB collection',
+          annotations: {
+            readOnlyHint: true,
+            idempotentHint: true,
+            destructiveHint: false,
+          },
           inputSchema: {
             type: 'object',
             properties: {
@@ -191,6 +201,11 @@ class MongoDBMCPServer {
         {
           name: 'aggregate',
           description: 'Run an aggregation pipeline on a MongoDB collection',
+          annotations: {
+            readOnlyHint: true,
+            idempotentHint: true,
+            destructiveHint: false,
+          },
           inputSchema: {
             type: 'object',
             properties: {
@@ -204,6 +219,11 @@ class MongoDBMCPServer {
         {
           name: 'count',
           description: 'Count documents in a MongoDB collection',
+          annotations: {
+            readOnlyHint: true,
+            idempotentHint: true,
+            destructiveHint: false,
+          },
           inputSchema: {
             type: 'object',
             properties: {
@@ -216,6 +236,11 @@ class MongoDBMCPServer {
         {
           name: 'distinct',
           description: 'Get distinct values for a field in a MongoDB collection',
+          annotations: {
+            readOnlyHint: true,
+            idempotentHint: true,
+            destructiveHint: false,
+          },
           inputSchema: {
             type: 'object',
             properties: {
@@ -229,6 +254,11 @@ class MongoDBMCPServer {
         {
           name: 'listCollections',
           description: 'List all collections in the database',
+          annotations: {
+            readOnlyHint: true,
+            idempotentHint: true,
+            destructiveHint: false,
+          },
           inputSchema: {
             type: 'object',
             properties: {
@@ -239,6 +269,11 @@ class MongoDBMCPServer {
         {
           name: 'insertOne',
           description: 'Insert a single document into a MongoDB collection',
+          annotations: {
+            readOnlyHint: false,
+            idempotentHint: false,
+            destructiveHint: false,
+          },
           inputSchema: {
             type: 'object',
             properties: {
@@ -251,6 +286,11 @@ class MongoDBMCPServer {
         {
           name: 'updateOne',
           description: 'Update a single document in a MongoDB collection',
+          annotations: {
+            readOnlyHint: false,
+            idempotentHint: false,
+            destructiveHint: true,
+          },
           inputSchema: {
             type: 'object',
             properties: {
@@ -265,6 +305,11 @@ class MongoDBMCPServer {
         {
           name: 'deleteOne',
           description: 'Delete a single document from a MongoDB collection',
+          annotations: {
+            readOnlyHint: false,
+            idempotentHint: true,
+            destructiveHint: true,
+          },
           inputSchema: {
             type: 'object',
             properties: {
@@ -277,6 +322,11 @@ class MongoDBMCPServer {
         {
           name: 'getSchema',
           description: 'Analyze collection structure and return field names with types',
+          annotations: {
+            readOnlyHint: true,
+            idempotentHint: true,
+            destructiveHint: false,
+          },
           inputSchema: {
             type: 'object',
             properties: {

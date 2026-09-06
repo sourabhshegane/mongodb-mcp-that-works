@@ -1,5 +1,7 @@
 # MongoDB MCP That Works
 
+<!-- mcp-name: io.github.sourabhshegane/mongodb-mcp-that-works -->
+
 [![npm version](https://img.shields.io/npm/v/@sourabhshegane/mongodb-mcp-that-works?color=blue)](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works)
 [![npm downloads](https://img.shields.io/npm/dt/@sourabhshegane/mongodb-mcp-that-works?color=blue)](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works)
 [![npm weekly downloads](https://img.shields.io/npm/dw/@sourabhshegane/mongodb-mcp-that-works?color=blue)](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works)
@@ -12,6 +14,9 @@
 A reliable MongoDB MCP (Model Context Protocol) server with built-in schema discovery and field validation. It's a standard MCP server over stdio, so it connects to **any** MCP client — Claude Desktop, Claude Code, OpenAI Codex, Cursor, VS Code / GitHub Copilot, Zed, and more.
 
 > **Published on npm**: [`@sourabhshegane/mongodb-mcp-that-works`](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works) · Install with `npx -y @sourabhshegane/mongodb-mcp-that-works`
+
+> [!CAUTION]
+> This server connects to your MongoDB with **full read/write access** to whatever user and database you supply via `MONGODB_URI`, and it exposes write tools (`insertOne`, `updateOne`, `deleteOne`) to any connected client. Only register it with MCP clients you trust. For high-risk environments, use a read-only MongoDB user or a dedicated database.
 
 ## Features
 
@@ -144,6 +149,10 @@ Project scope — `.cursor/mcp.json` (commit it to share with your team). Global
 ```
 
 ### VS Code / GitHub Copilot
+
+For quick installation, click the buttons below. After install, replace the placeholder connection string in your config:
+
+[![Install with NPX in VS Code](https://img.shields.io/badge/VS_Code-NPM-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=mongodb&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40sourabhshegane%2Fmongodb-mcp-that-works%40latest%22%5D%2C%22env%22%3A%7B%22MONGODB_URI%22%3A%22mongodb%2Bsrv%3A%2F%2Fuser%3Apassword%40cluster.mongodb.net%2Fdatabase%22%7D%7D) [![Install with NPX in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-NPM-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=mongodb&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40sourabhshegane%2Fmongodb-mcp-that-works%40latest%22%5D%2C%22env%22%3A%7B%22MONGODB_URI%22%3A%22mongodb%2Bsrv%3A%2F%2Fuser%3Apassword%40cluster.mongodb.net%2Fdatabase%22%7D%7D&quality=insiders)
 
 Note: VS Code's root key is **`servers`** (other clients use `mcpServers`), and `type` is required. `.vscode/mcp.json`:
 
@@ -323,6 +332,25 @@ mcp.getSchema({
 }
 ```
 
+### Tool annotations (MCP hints)
+
+Tools are annotated with [MCP ToolAnnotations](https://modelcontextprotocol.io/specification/2025-03-26/server/tools#toolannotations) so clients can distinguish **read-only** tools from write-capable tools and flag operations that are destructive:
+
+| Tool              | readOnlyHint | idempotentHint | destructiveHint | Notes                                              |
+|-------------------|--------------|----------------|-----------------|----------------------------------------------------|
+| `listCollections` | `true`       | –              | –               | Pure read                                         |
+| `find`            | `true`       | –              | –               | Pure read                                         |
+| `findOne`         | `true`       | –              | –               | Pure read                                         |
+| `aggregate`       | `true`       | –              | –               | Pure read (may also run write stages)             |
+| `count`           | `true`       | –              | –               | Pure read                                         |
+| `distinct`        | `true`       | –              | –               | Pure read                                         |
+| `getSchema`       | `true`       | –              | –               | Pure read                                         |
+| `insertOne`       | `false`      | `false`        | `false`         | Additive; retrying inserts a new document         |
+| `updateOne`       | `false`      | `false`        | `true`          | Modifies existing docs; `$inc`/`$push` are non-idempotent |
+| `deleteOne`       | `false`      | `true`         | `true`          | Deleting an already-absent document is a no-op    |
+
+> Note: `aggregate` is annotated read-only, but it can contain write stages (e.g. `$out`, `$merge`) — inspect pipelines before running.
+
 ## Best Practices
 
 1. **Use Schema Discovery First**: Before querying, run `getSchema` to understand field names
@@ -363,6 +391,16 @@ const analytics = await mcp.aggregate({
 });
 ```
 
+## Debugging
+
+You can use the [MCP Inspector](https://github.com/modelcontextprotocol/inspector) to debug the server, inspect tool schemas, and call tools interactively:
+
+```bash
+npx @modelcontextprotocol/inspector npx -y @sourabhshegane/mongodb-mcp-that-works@latest
+```
+
+Set `MONGODB_URI` (and optionally `MONGODB_DATABASE`) in your environment before launching the inspector.
+
 ## Troubleshooting
 
 ### Connection Issues
@@ -379,6 +417,10 @@ const analytics = await mcp.aggregate({
 - Use indexes for frequently queried fields
 - Limit result sets with `limit` parameter
 - Use projections to return only needed fields
+
+## Contributing
+
+Contributions are welcome — new tools, bug fixes, examples, and documentation improvements. Pull requests and issues are appreciated. See [CHANGELOG.md](CHANGELOG.md) for release history. For examples of other MCP servers, see the [reference implementations](https://github.com/modelcontextprotocol/servers).
 
 ## License
 

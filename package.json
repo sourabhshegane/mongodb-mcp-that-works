@@ -13,7 +13,14 @@
     "start": "node dist/index.js",
     "prepublishOnly": "npm run build"
   },
-  "keywords": ["mcp", "mongodb", "database", "model-context-protocol", "claude", "schema-discovery"],
+  "keywords": [
+    "mcp",
+    "mongodb",
+    "database",
+    "model-context-protocol",
+    "claude",
+    "schema-discovery"
+  ],
   "author": "SS",
   "license": "MIT",
   "repository": {
@@ -25,7 +32,7 @@
   },
   "homepage": "https://github.com/sourabhshegane/mongodb-mcp-that-works#readme",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^0.5.0",
+    "@modelcontextprotocol/sdk": "^1.30.0",
     "mongodb": "^6.3.0",
     "zod": "^3.22.4"
   },
