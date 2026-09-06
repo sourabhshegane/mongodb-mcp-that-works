@@ -73,8 +73,8 @@ class MongoDBMCPServer {
   constructor() {
     this.server = new Server(
       {
-        name: 'mongodb-mcp',
-        version: '1.0.0',
+        name: 'mongodb-mcp-that-works',
+        version: '0.1.5',
       },
       {
         capabilities: {
