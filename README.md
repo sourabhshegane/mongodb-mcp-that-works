@@ -1,6 +1,16 @@
 # MongoDB That Works - MCP Server
 
+[![npm version](https://img.shields.io/npm/v/@sourabhshegane/mongodb-mcp-that-works?color=blue)](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works)
+[![npm downloads](https://img.shields.io/npm/dm/@sourabhshegane/mongodb-mcp-that-works)](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works)
+[![CI](https://github.com/sourabhshegane/mongodb-mcp-that-works/actions/workflows/ci.yml/badge.svg)](https://github.com/sourabhshegane/mongodb-mcp-that-works/actions/workflows/ci.yml)
+[![GitHub release](https://img.shields.io/github/v/release/sourabhshegane/mongodb-mcp-that-works)](https://github.com/sourabhshegane/mongodb-mcp-that-works/releases)
+[![license](https://img.shields.io/github/license/sourabhshegane/mongodb-mcp-that-works)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/sourabhshegane/mongodb-mcp-that-works)](https://github.com/sourabhshegane/mongodb-mcp-that-works)
+[![node](https://img.shields.io/badge/node-%3E%3D16-green)](package.json)
+
 A reliable MongoDB MCP (Model Context Protocol) server that provides seamless MongoDB integration for Claude Desktop with built-in schema discovery and field validation.
+
+> **Published on npm**: [`@sourabhshegane/mongodb-mcp-that-works`](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works) · Install with `npx -y @sourabhshegane/mongodb-mcp-that-works`
 
 ## Features
 
@@ -244,12 +254,21 @@ MIT License - see LICENSE file for details
 
 ## Changelog
 
-### v0.1.0
-- Initial release
-- Full MongoDB CRUD operations
-- Schema discovery tool
-- Automatic ObjectId conversion
-- TypeScript support
+See [CHANGELOG.md](CHANGELOG.md) for the full history.
+
+| Version | npm | GitHub Release | Highlights |
+|---------|-----|----------------|------------|
+| 0.1.5 | [npm](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works/v/0.1.5) | [v0.1.5](https://github.com/sourabhshegane/mongodb-mcp-that-works/releases/tag/v0.1.5) | Post-migration metadata & ownership fixes |
+| 0.1.3 | [npm](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works/v/0.1.3) | [v0.1.3](https://github.com/sourabhshegane/mongodb-mcp-that-works/releases/tag/v0.1.3) | Published with `@latest` install docs |
+| 0.1.2 | [npm](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works/v/0.1.2) | [v0.1.2](https://github.com/sourabhshegane/mongodb-mcp-that-works/releases/tag/v0.1.2) | Repo URLs updated to mongodb-mcp-that-works |
+| 0.1.0 | [npm](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works/v/0.1.0) | [v0.1.0](https://github.com/sourabhshegane/mongodb-mcp-that-works/releases/tag/v0.1.0) | Initial release |
+
+## Releases
+
+All versions published to npm also have tagged GitHub Releases with build checks. The repo uses [GitHub Actions](https://github.com/sourabhshegane/mongodb-mcp-that-works/actions) for continuous integration and automated publishing:
+
+- Tag pushes (`v*`) trigger lint/build checks and, once checks pass, an automated npm publish
+- Every published version has a matching [GitHub Release](https://github.com/sourabhshegane/mongodb-mcp-that-works/releases)
 
 ---
 
