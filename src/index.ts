@@ -74,7 +74,7 @@ class MongoDBMCPServer {
     this.server = new Server(
       {
         name: 'mongodb-mcp-that-works',
-        version: '0.1.7',
+        version: '0.1.8',
       },
       {
         capabilities: {

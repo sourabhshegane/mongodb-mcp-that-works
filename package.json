@@ -1,6 +1,6 @@
 {
   "name": "@sourabhshegane/mongodb-mcp-that-works",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A MongoDB MCP server that actually works - with schema discovery, field validation, and all MongoDB operations",
   "main": "dist/index.js",
   "type": "module",
