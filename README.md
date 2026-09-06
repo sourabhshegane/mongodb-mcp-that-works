@@ -1,4 +1,4 @@
-# MongoDB That Works - MCP Server
+# MCP That Works
 
 [![npm version](https://img.shields.io/npm/v/@sourabhshegane/mongodb-mcp-that-works?color=blue)](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works)
 [![npm downloads](https://img.shields.io/npm/dt/@sourabhshegane/mongodb-mcp-that-works?color=blue)](https://www.npmjs.com/package/@sourabhshegane/mongodb-mcp-that-works)
